@@ -1,0 +1,62 @@
+# ============================================================
+# CryptoNestX — Global .gitignore
+# ============================================================
+
+# ── Secrets & Environment Variables ─────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials_setup_guide.md
+
+# ── Java / Maven (Backend Microservices) ────────────────────
+target/
+*.jar
+*.war
+*.ear
+*.class
+*.log
+logs/
+
+# ── Node.js / React (Frontend) ──────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ── IDEs & Editors ──────────────────────────────────────────
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# ── Operating System ────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ── Docker & Containerization ───────────────────────────────
+.docker/
+docker-compose.override.yml
+
+# ── Miscellaneous ───────────────────────────────────────────
+*.bak
+*.swp
+*~
