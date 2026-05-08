@@ -15,6 +15,9 @@ volumes:
   kafka_data:
   prometheus_data:
   grafana_data:
+  sonarqube_postgres_data:
+  sonarqube_data:
+  sonarqube_logs:
 
 services:
 
@@ -129,8 +132,8 @@ services:
       SPRING_REDIS_PORT: 6379
       SPRING_REDIS_PASSWORD: ${REDIS_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
-      COINGECKO_API_KEY: ${COINGECKO_API_KEY}
-      COINGECKO_BASE_URL: ${COINGECKO_BASE_URL}
+      CMC_API_KEY: ${CMC_API_KEY}
+      CMC_BASE_URL: ${CMC_BASE_URL}
     ports:
       - "8082:8082"
     networks: [cryptonest-net]
@@ -140,6 +143,9 @@ services:
       timeout: 10s
       start_period: 60s
       retries: 3
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
 
   exchange-service:
     build:
@@ -225,7 +231,7 @@ services:
   # ── Monitoring ───────────────────────────────────────────────
 
   prometheus:
-    image: prom/prometheus:v2.49.0
+    image: prom/prometheus:v2.45.0
     container_name: cryptonest-prometheus
     restart: unless-stopped
     volumes:
@@ -256,16 +262,38 @@ services:
       - "3001:3000"
     networks: [cryptonest-net]
 
+  # ── SonarQube (dedicated DB — isolated from microservice postgres) ──
+
+  sonarqube-postgres:
+    image: postgres:15-alpine
+    container_name: cryptonest-sonarqube-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sonar
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: ${SONAR_DB_PASSWORD:-sonar}
+    volumes:
+      - sonarqube_postgres_data:/var/lib/postgresql/data
+    networks: [cryptonest-net]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sonar"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   sonarqube:
     image: sonarqube:community
     container_name: cryptonest-sonarqube
     restart: unless-stopped
     environment:
-      SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/sonar_db
-      SONAR_JDBC_USERNAME: ${POSTGRES_USER}
-      SONAR_JDBC_PASSWORD: ${POSTGRES_PASSWORD}
+      SONAR_JDBC_URL: jdbc:postgresql://sonarqube-postgres:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: ${SONAR_DB_PASSWORD:-sonar}
     depends_on:
-      postgres: { condition: service_healthy }
+      sonarqube-postgres: { condition: service_healthy }
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
     ports:
       - "9000:9000"
     networks: [cryptonest-net]

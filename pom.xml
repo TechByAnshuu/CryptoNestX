@@ -24,13 +24,22 @@
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring-boot.version>3.2.0</spring-boot.version>
+    <spring-boot.version>3.2.5</spring-boot.version>
     <jacoco.version>0.8.11</jacoco.version>
     <jjwt.version>0.12.3</jjwt.version>
     <springdoc.version>2.3.0</springdoc.version>
     <testcontainers.version>1.19.3</testcontainers.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <lombok.version>1.18.30</lombok.version>
+    <!-- SonarQube -->
+    <sonar.projectKey>cryptonestx</sonar.projectKey>
+    <sonar.projectName>CryptoNestX</sonar.projectName>
+    <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <sonar.token>${env.SONAR_TOKEN}</sonar.token>
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.coverage.jacoco.xmlReportPaths>
+      ${project.build.directory}/site/jacoco/jacoco.xml
+    </sonar.coverage.jacoco.xmlReportPaths>
   </properties>
 
   <dependencyManagement>
@@ -185,6 +194,13 @@
           <groupId>org.flywaydb</groupId>
           <artifactId>flyway-maven-plugin</artifactId>
           <version>9.22.3</version>
+        </plugin>
+
+        <!-- SonarQube -->
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.11.0.3922</version>
         </plugin>
       </plugins>
     </pluginManagement>

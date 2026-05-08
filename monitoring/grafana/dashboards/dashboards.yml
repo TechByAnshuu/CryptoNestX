@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: CryptoNestX
+    orgId: 1
+    folder: CryptoNestX
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
