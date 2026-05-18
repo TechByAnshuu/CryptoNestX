@@ -29,6 +29,17 @@ public class Portfolio {
     @Builder.Default
     private BigDecimal totalValue = BigDecimal.ZERO;
 
+    @Column(name = "initial_deposit", nullable = false, precision = 19, scale = 4)
+    @Builder.Default
+    private BigDecimal initialDeposit = BigDecimal.ZERO;
+
+    @Column(name = "is_public", nullable = false)
+    @Builder.Default
+    private boolean isPublic = false;
+
+    @Column(name = "username", length = 50)
+    private String username;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

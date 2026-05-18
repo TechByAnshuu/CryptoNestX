@@ -1,0 +1,100 @@
+.container {
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.container h2 {
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 24px;
+  color: #1a1f36;
+}
+
+.tableWrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inter', sans-serif;
+}
+
+.table th {
+  background: #f7fafc;
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.row {
+  border-bottom: 1px solid #edf2f7;
+  transition: background-color 0.2s ease;
+}
+
+.row:hover {
+  background-color: #f7fafc;
+}
+
+.table td {
+  padding: 16px 20px;
+  vertical-align: middle;
+}
+
+.rankBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #edf2f7;
+  color: #4a5568;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.valCol, .pnlCol {
+  text-align: right;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+}
+
+.userCol {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+/* Podium Styling */
+.rankFirst {
+  background: linear-gradient(90deg, rgba(255,215,0,0.1) 0%, transparent 100%);
+}
+.rankFirst .rankBadge {
+  background: #ffd700;
+  color: #b8860b;
+  box-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+.rankSecond {
+  background: linear-gradient(90deg, rgba(192,192,192,0.1) 0%, transparent 100%);
+}
+.rankSecond .rankBadge {
+  background: #c0c0c0;
+  color: #696969;
+}
+
+.rankThird {
+  background: linear-gradient(90deg, rgba(205,127,50,0.1) 0%, transparent 100%);
+}
+.rankThird .rankBadge {
+  background: #cd7f32;
+  color: #8b4513;
+}

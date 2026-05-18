@@ -26,6 +26,7 @@ public class OrderService {
     private final TransactionRepository transactionRepository;
     private final WalletService walletService;
     private final OrderEventProducer orderEventProducer;
+    private final LedgerService ledgerService;
 
     @Transactional
     public OrderResponse placeOrder(UUID userId, String userEmail, PlaceOrderRequest request) {
@@ -67,6 +68,9 @@ public class OrderService {
 
             // Publish event so Notification service can send an email
             orderEventProducer.publishOrderEvent(order, userEmail);
+
+            // Write immutable audit entry to transaction ledger
+            ledgerService.recordTrade(userId, request, request.getPrice());
 
         } catch (Exception e) {
             log.error("Order execution failed: {}", e.getMessage());

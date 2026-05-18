@@ -10,4 +10,6 @@ import java.util.UUID;
 @Repository
 public interface PortfolioRepository extends JpaRepository<Portfolio, UUID> {
     Optional<Portfolio> findByUserId(UUID userId);
+    
+    List<Portfolio> findByIsPublicTrue();
 }
