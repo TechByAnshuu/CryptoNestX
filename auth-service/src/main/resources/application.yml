@@ -26,7 +26,7 @@ spring:
       password: ${SPRING_REDIS_PASSWORD:}
 
 jwt:
-  secret: ${JWT_SECRET:YmFzZTY0LWVuY29kZWQtc2VjcmV0LWtleS1zaG91bGQtYmUtYXQtbGVhc3QtMjU2LWJpdHMtbG9uZw==}
+  secret: ${JWT_SECRET}  # No fallback — must be set via environment variable
   expiration-ms: ${JWT_EXPIRATION_MS:86400000}
   refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}
 
