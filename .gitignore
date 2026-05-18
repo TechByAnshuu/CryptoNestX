@@ -60,3 +60,11 @@ docker-compose.override.yml
 *.bak
 *.swp
 *~
+
+# ── Personal / Scratch Files ────────────────────────────────
+git_commit_strategy.md
+scratch/
+notes/
+personal/
+*.personal.md
+
